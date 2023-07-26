@@ -9,12 +9,12 @@ DEFINE m_curRow SMALLINT
 DEFINE m_where  STRING
 MAIN
 	DEFINE l_cust        RECORD LIKE customers.*
-	DEFINE l_email       LIKE customers.email
 	DEFINE l_new         BOOLEAN = FALSE
 	DEFINE l_dataChanged BOOLEAN = FALSE
 	DEFINE l_mess        STRING
 	DEFINE l_accept      BOOLEAN = FALSE
 	DEFINE l_dirty       BOOLEAN = FALSE
+	DEFINE l_started     BOOLEAN = FALSE
 	DEFINE l_mode        CHAR(1)
 
 	CALL lib.init()
@@ -29,7 +29,7 @@ MAIN
 	DISPLAY FORM f
 	OPTIONS INPUT WRAP
 
-	CALL ui.Window.getCurrent().setText(SFMT("%1 - %2", TODAY, ui.Window.getCurrent().getText()) )
+	CALL ui.Window.getCurrent().setText(SFMT("%1 - %2", ui.Window.getCurrent().getText(), TODAY) )
 
 	LET m_where = " 1=1"
 	CALL getData()
@@ -53,6 +53,10 @@ MAIN
 			BEFORE ROW
 				DISPLAY SFMT("Before Row %1", arr_curr())
 				CALL setRow(DIALOG, arr_curr()) RETURNING l_cust.*
+				IF l_started THEN
+					CALL ui.Interface.setText(SFMT("Cust: %1", l_cust.cust_code) )
+				END IF
+				LET l_started = TRUE
 
 			ON ACTION lookup
 				VAR l_lookup lookup

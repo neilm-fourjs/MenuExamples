@@ -14,6 +14,7 @@ MAIN
 	DEFINE l_mess        STRING
 	DEFINE l_accept      BOOLEAN = FALSE
 	DEFINE l_dirty       BOOLEAN = FALSE
+	DEFINE l_started     BOOLEAN = FALSE
 	DEFINE l_mode        CHAR(1)
 	CALL lib.init()
 
@@ -49,6 +50,10 @@ MAIN
 			BEFORE ROW
 				DISPLAY SFMT("Before Row %1", arr_curr())
 				CALL setRow(DIALOG, arr_curr()) RETURNING l_stk.*
+				IF l_started THEN
+					CALL ui.Interface.setText(SFMT("Stock: %1", l_stk.stock_code) )
+				END IF
+				LET l_started = TRUE
 
 			ON ACTION lookup
 				VAR l_lookup lookup
