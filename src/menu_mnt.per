@@ -1,0 +1,66 @@
+
+TOOLBAR
+	ITEM quit
+	SEPARATOR
+	ITEM accept
+	ITEM cancel
+	SEPARATOR
+	ITEM insert
+	ITEM update
+	ITEM delete
+	SEPARATOR
+	ITEM about
+END -- TB
+
+LAYOUT ( TEXT="Menu Maintenance", STYLE="main" )
+GRID
+{
+<T                            ><G "Menu Details"                                          >
+[a|a001  |a002               ]  [l001        |f001  ]
+[a|a001  |a002               ]  [l002        |f002   ]
+[a|a001  |a002               ]  [l003        |f003  ]
+[a|a001  |a002               ]  [l004        |f004                                       ]
+[a|a001  |a002               ]  [l005        |f005                                       ]
+[a|a001  |a002               ]  [l006        |f |f006                                    ]
+[a|a001  |a002               ]  [l007        |f007  ]
+[a|a001  |a002               ]  [l008        |f008                                       ]
+[a|a001  |a002               ]  [l009        |f009                                       ]
+[a|a001  |a002               ] <                                                          >
+}
+END -- GRID
+ATTRIBUTES
+
+PHANTOM FORMONLY.a01;
+a = FORMONLY.a02, TITLE="Type";
+a001 = FORMONLY.a03, TITLE="Name";
+a002 = FORMONLY.a04, TITLE="Text";
+PHANTOM FORMONLY.a05;
+PHANTOM FORMONLY.a06;
+PHANTOM FORMONLY.a07;
+PHANTOM FORMONLY.a08;
+PHANTOM FORMONLY.a09;
+
+LABEL l001 : lab1, TEXT="Key:", JUSTIFY=RIGHT;
+LABEL l002 : lab2, TEXT="Type:", JUSTIFY=RIGHT;
+LABEL l003 : lab3, TEXT="Name:", JUSTIFY=RIGHT;
+LABEL l004 : lab4, TEXT="Text:", JUSTIFY=RIGHT;
+LABEL l005 : lab5, TEXT="Description:", JUSTIFY=RIGHT;
+LABEL l006 : lab6, TEXT="Image:", JUSTIFY=RIGHT;
+LABEL l007 : lab7, TEXT="Child:", JUSTIFY=RIGHT;
+LABEL l008 : lab8, TEXT="Command:", JUSTIFY=RIGHT;
+LABEL l009 : lab9, TEXT="Args:", JUSTIFY=RIGHT;
+
+f001 = FORMONLY.m_key, NOENTRY;
+COMBOBOX f002 = FORMONLY.m_type, INITIALIZER=cb_menu_types, NOT NULL;
+f003 = FORMONLY.m_name, NOT NULL;
+f004 = FORMONLY.m_text;
+f005 = FORMONLY.m_desc;
+f006 = FORMONLY.m_img;
+f007 = FORMONLY.m_child;
+f008 = FORMONLY.m_cmd;
+f009 = FORMONLY.m_args;
+
+IMAGE f = FORMONLY.img, STYLE="bigicon", AUTOSCALE;
+
+INSTRUCTIONS
+SCREEN RECORD arr ( FORMONLY.a01 THRU FORMONLY.a09 )

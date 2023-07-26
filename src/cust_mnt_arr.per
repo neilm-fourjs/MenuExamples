@@ -1,0 +1,47 @@
+
+&include "schema.inc"
+
+LAYOUT ( TEXT="Customes", STYLE="dialog3" )
+GRID
+{
+This is a list of customers
+<T tab1                           >
+[a01    |a02                     ]
+[a01    |a02                     ]
+[a01    |a02                     ]
+[a01    |a02                     ]
+[a01    |a02                     ]
+[a01    |a02                     ]
+[a01    |a02                     ]
+[a01    |a02                     ]
+[a01    |a02                     ]
+[a01    |a02                     ]
+<                                 >
+}
+END -- GRID
+
+TABLES
+customers
+
+
+ATTRIBUTES
+
+TABLE tab1 : tab1,  FLIPPED@SMALL;
+
+a01 = customers.cust_code, TITLE=%"Code", IMAGECOLUMN=cont_name;
+a02 = customers.cust_name, TITLE=%"Name";
+PHANTOM customers.cont_name;
+PHANTOM customers.EMAIL;
+PHANTOM customers.disc_code;
+PHANTOM customers.credit_limit;
+PHANTOM customers.total_invoices;
+PHANTOM customers.outstanding_amount;
+PHANTOM customers.addr_line1;
+PHANTOM customers.addr_line2;
+PHANTOM customers.addr_line3;
+PHANTOM customers.addr_line4;
+PHANTOM customers.postal_sort;
+PHANTOM customers.country;
+
+INSTRUCTIONS
+SCREEN RECORD arr ( customers.cust_code THRU customers.country )

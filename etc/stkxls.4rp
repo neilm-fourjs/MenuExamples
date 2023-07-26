@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report:Report xmlns:rtl="http://www.4js.com/2004/RTL" xmlns:report="http://www.4js.com/2007/REPORT" xmlns="http://www.4js.com/2004/PXML" gstVersion="40100" version="7.00">
+    <report:Settings RWPageWidth="letterlength" RWPageLength="letterwidth" RWLeftMargin="0.5inch" RWTopMargin="0.5inch" RWRightMargin="0.5inch" RWBottomMargin="0.5inch">
+        <report:FormatList>
+            <report:Format-SVG/>
+            <report:Format-PDF/>
+            <report:Format-image/>
+        </report:FormatList>
+    </report:Settings>
+    <report:Data RWDataLocation="../src/stk_mnt.rdd" RWFglReportName="rpt1"/>
+    <report:Conflicts/>
+    <rtl:stylesheet>
+        <PXML>
+            <rtl:match name="Report" nameConstraint="Report" minOccurs="1" maxOccurs="1">
+                <MINIPAGE name="Page Root" width="max" length="max" fontSize="8">
+                    <rtl:match name="FirstPageHeader" nameConstraint="FirstPageHeader" minOccurs="0" maxOccurs="1"/>
+                    <rtl:match name="Group stock_cat" nameConstraint="Group" minOccurs="0" maxOccurs="unbounded">
+                        <rtl:match name="OnEveryRow" nameConstraint="OnEveryRow" minOccurs="0" maxOccurs="unbounded">
+                            <MINIPAGE name="Table Row" class="grwTableRow" width="min" length="max" layoutDirection="leftToRight">
+                                <rtl:input-variable name="l_stk.stock_code" type="FGLString" expectedLocation="expectedHere"/>
+                                <WORDBOX name="l_stk.stock_code Value" designHints="fieldName:l_stk.stock_code;fieldRole:TableColumnValue" class="grwStringValue" width="{max(width(&quot;{&quot;Stock Code&quot;.translate()}&quot;),width(&quot;M&quot;)*8)}" floatingBehavior="enclosed" text="{{l_stk.stock_code}}"/>
+                                <rtl:input-variable name="l_stk.stock_cat" type="FGLString" expectedLocation="expectedHere"/>
+                                <WORDBOX name="l_stk.stock_cat Value" designHints="fieldName:l_stk.stock_cat;fieldRole:TableColumnValue" class="grwStringValue" width="{max(width(&quot;{&quot;Stock Cat&quot;.translate()}&quot;),width(&quot;M&quot;)*10)}" floatingBehavior="enclosed" text="{{l_stk.stock_cat}}"/>
+                                <rtl:input-variable name="l_stk.description" type="FGLString" expectedLocation="expectedHere"/>
+                                <WORDBOX name="l_stk.description Value" designHints="fieldName:l_stk.description;fieldRole:TableColumnValue" class="grwStringValue" width="{max(width(&quot;{&quot;Description&quot;.translate()}&quot;),width(&quot;M&quot;)*30)}" floatingBehavior="enclosed" text="{{l_stk.description}}"/>
+                                <rtl:input-variable name="l_stk.price" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                <DECIMALFORMATBOX name="l_stk.price Value" designHints="fieldName:l_stk.price;fieldRole:TableColumnValue" class="grwTableNumericColumnValue" width="{max(width(&quot;{&quot;Price&quot;.translate()}&quot;),width(&quot;-0,000,000,000.00&quot;))}" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="-,---,---,--&amp;.&amp;&amp;" value="{{l_stk.price}}"/>
+                                <rtl:input-variable name="l_stk.cost" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                <DECIMALFORMATBOX name="l_stk.cost Value" designHints="fieldName:l_stk.cost;fieldRole:TableColumnValue" class="grwTableNumericColumnValue" width="{max(width(&quot;{&quot;Cost&quot;.translate()}&quot;),width(&quot;-0,000,000,000.00&quot;))}" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="-,---,---,--&amp;.&amp;&amp;" value="{{l_stk.cost}}"/>
+                                <rtl:input-variable name="l_stk.physical_stock" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                <DECIMALFORMATBOX name="l_stk.physical_stock Value" designHints="fieldName:l_stk.physical_stock;fieldRole:TableColumnValue" class="grwTableNumericColumnValue" width="{max(width(&quot;{&quot;Physical Stock&quot;.translate()}&quot;),width(&quot;-0000000000&quot;))}" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="----------#" value="{{l_stk.physical_stock}}"/>
+                                <rtl:input-variable name="l_stk.free_stock" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                <DECIMALFORMATBOX name="l_stk.free_stock Value" designHints="fieldName:l_stk.free_stock;fieldRole:TableColumnValue" class="grwTableNumericColumnValue" width="{max(width(&quot;{&quot;Free Stock&quot;.translate()}&quot;),width(&quot;-0000000000&quot;))}" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="----------#" value="{{l_stk.free_stock}}"/>
+                            </MINIPAGE>
+                        </rtl:match>
+                    </rtl:match>
+                </MINIPAGE>
+            </rtl:match>
+        </PXML>
+    </rtl:stylesheet>
+</report:Report>

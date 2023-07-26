@@ -1,0 +1,22 @@
+
+LAYOUT (TEXT="Report Settings", STYLE="dialog")
+
+GRID
+{
+[l000     |f000               ]
+[l001     |f001               ]
+[l002     |f002 ]
+[l003     |f003               ]
+}
+END -- GRID
+
+ATTRIBUTES
+LABEL l000 : lab0, TEXT="Report Layout:", JUSTIFY=RIGHT;
+LABEL l001 : lab1, TEXT="Output:", JUSTIFY=RIGHT;
+LABEL l002 : lab2, TEXT="Preview:", JUSTIFY=RIGHT;
+LABEL l003 : lab3, TEXT="Output File:", JUSTIFY=RIGHT;
+
+COMBOBOX f000 = FORMONLY.m_report, NOT NULL;
+COMBOBOX f001 = FORMONLY.m_report_output, ITEMS=(("SVG","SVG"),("PDF","PDF"),("RTF","RTF"),("XLS","XLS"),("XML","XML Data")), NOT NULL;
+COMBOBOX f002 = FORMONLY.m_report_preview, ITEMS=((1, "True"),(0, "False")), NOT NULL;
+f003 = FORMONLY.m_report_outfile;

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report:Report xmlns:rtl="http://www.4js.com/2004/RTL" xmlns:report="http://www.4js.com/2007/REPORT" xmlns="http://www.4js.com/2004/PXML" gstVersion="40100" version="7.00">
+    <report:Settings RWPageWidth="letterlength" RWPageLength="letterwidth" RWLeftMargin="0.5inch" RWTopMargin="0.5inch" RWRightMargin="0.5inch" RWBottomMargin="0.5inch">
+        <report:FormatList>
+            <report:Format-SVG/>
+            <report:Format-PDF/>
+            <report:Format-image/>
+        </report:FormatList>
+    </report:Settings>
+    <report:Data RWDataLocation="../src/cust_mnt.rdd" RWFglReportName="rpt1"/>
+    <report:Conflicts/>
+    <rtl:stylesheet>
+        <PXML>
+            <rtl:match name="Report" nameConstraint="Report" minOccurs="1" maxOccurs="1">
+                <MINIPAGE name="Page Root" width="max" length="max">
+                    <LAYOUTNODE name="Page Header" width="max" length="min" port="anyPageHeader">
+                        <MINIPAGE name="StripeLayouter3" width="50" length="max" bgColor="#bee1d7" layoutDirection="leftToRight" roundedCorners="true" borderWidth=".5" borderStyle="solid">
+                            <PAGENOBOX name="PageNoBox" x="1.23857" y="max" anchorX="0" anchorY="1" alignment="baseline" baselineType="leftleft" floatingBehavior="enclosed" textAlignment="right"/>
+                            <rtl:input-variable name="l_rptTitle" type="FGLString" expectedLocation="expectedAhead"/>
+                            <WORDWRAPBOX name="l_rptTitle Value" designHints="fieldName:l_rptTitle;fieldRole:TableColumnValue" class="grwTableStringColumnValue" x="max/2" y="max/2" width="300" anchorX="0.5" anchorY="0.5" scaleX="1" fontSize="20pt" fontBold="true" floatingBehavior="enclosed" text="{{l_rptTitle}}" textAlignment="center"/>
+                            <rtl:input-variable name="l_today" type="FGLString" expectedLocation="expectedAhead"/>
+                            <DATEFORMATBOX name="l_today Value" designHints="fieldName:l_today;fieldRole:TableColumnValue" class="grwTableDateColumnValue" x="0" y="0" anchorX="0" anchorY="0" floatingBehavior="enclosed" value="{{Date.fromIsoValue(l_today.isoValue)}}"/>
+                        </MINIPAGE>
+                        <MINIPAGE name="Table Header" class="grwTableHeader" width="min" length="max" layoutDirection="leftToRight">
+                            <WORDBOX name="Spacer" alignment="baseline" baselineType="leftleft" port="itemSeparator" text=" "/>
+                            <WORDBOX name="l_cust.cust_code Title" designHints="fieldName:l_cust.cust_code;fieldRole:TableColumnTitle" class="grwTableStringColumnTitle" width="{max(width(&quot;{&quot;Cust Code&quot;.translate()}&quot;),width(&quot;M&quot;)*8)}" floatingBehavior="enclosed" text="Cust Code" localizeText="true"/>
+                            <WORDBOX name="l_cust.cust_name Title" designHints="fieldName:l_cust.cust_name;fieldRole:TableColumnTitle" class="grwTableStringColumnTitle" width="{max(width(&quot;{&quot;Cust Name&quot;.translate()}&quot;),width(&quot;M&quot;)*20)}" floatingBehavior="enclosed" text="Name" localizeText="true"/>
+                            <WORDBOX name="l_cust.credit_limit Title" designHints="fieldName:l_cust.credit_limit;fieldRole:TableColumnTitle" class="grwTableNumericColumnTitle" width="{max(width(&quot;{&quot;Credit Limit&quot;.translate()}&quot;),width(&quot;-0,000,000,000.00&quot;))}" floatingBehavior="enclosed" textAlignment="right" text="Credit Limit" localizeText="true"/>
+                            <WORDBOX name="l_cust.country Title" designHints="fieldName:l_cust.country;fieldRole:TableColumnTitle" class="grwTableStringColumnTitle" width="{max(width(&quot;{&quot;Country&quot;.translate()}&quot;),width(&quot;W&quot;)*3)}" floatingBehavior="enclosed" text="Country" localizeText="true"/>
+                        </MINIPAGE>
+                        <MINIPAGE name="Separator" width="1" length="max" bgColor="#000000" layoutDirection="leftToRight"/>
+                    </LAYOUTNODE>
+                    <rtl:match name="FirstPageHeader" nameConstraint="FirstPageHeader" minOccurs="0" maxOccurs="1"/>
+                    <rtl:match name="OnEveryRow" nameConstraint="OnEveryRow" minOccurs="0" maxOccurs="unbounded">
+                        <MINIPAGE name="Table Row" class="grwTableRow" width="min" length="max" layoutDirection="leftToRight">
+                            <WORDBOX name="Spacer_1" alignment="baseline" baselineType="leftleft" port="itemSeparator" text=" "/>
+                            <rtl:input-variable name="l_cust.cust_code" type="FGLString" expectedLocation="expectedHere"/>
+                            <WORDBOX name="l_cust.cust_code Value" designHints="fieldName:l_cust.cust_code;fieldRole:TableColumnValue" class="grwStringValue" width="{max(width(&quot;{&quot;Cust Code&quot;.translate()}&quot;),width(&quot;M&quot;)*8)}" floatingBehavior="enclosed" text="{{l_cust.cust_code}}"/>
+                            <rtl:input-variable name="l_cust.cust_name" type="FGLString" expectedLocation="expectedHere"/>
+                            <WORDWRAPBOX name="l_cust.cust_name Value" designHints="fieldName:l_cust.cust_name;fieldRole:TableColumnValue" class="grwTableStringColumnValue" width="{max(width(&quot;{&quot;Cust Name&quot;.translate()}&quot;),width(&quot;M&quot;)*20)}" floatingBehavior="enclosed" text="{{l_cust.cust_name}}"/>
+                            <rtl:input-variable name="l_cust.credit_limit" type="FGLNumeric" expectedLocation="expectedHere"/>
+                            <DECIMALFORMATBOX name="l_cust.credit_limit Value" designHints="fieldName:l_cust.credit_limit;fieldRole:TableColumnValue" class="grwTableNumericColumnValue" width="{max(width(&quot;{&quot;Credit Limit&quot;.translate()}&quot;),width(&quot;-0,000,000,000.00&quot;))}" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="-,---,---,--&amp;.&amp;&amp;" value="{{l_cust.credit_limit}}"/>
+                            <rtl:input-variable name="l_cust.country" type="FGLString" expectedLocation="expectedHere"/>
+                            <WORDBOX name="l_cust.country Value" designHints="fieldName:l_cust.country;fieldRole:TableColumnValue" class="grwStringValue" width="{max(width(&quot;{&quot;Country&quot;.translate()}&quot;),width(&quot;W&quot;)*3)}" floatingBehavior="enclosed" text="{{l_cust.country}}"/>
+                        </MINIPAGE>
+                    </rtl:match>
+                </MINIPAGE>
+            </rtl:match>
+        </PXML>
+    </rtl:stylesheet>
+</report:Report>

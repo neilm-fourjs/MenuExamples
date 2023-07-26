@@ -1,0 +1,49 @@
+
+LAYOUT (TEXT="Menu", STYLE="menu")
+HBOX
+GRID
+{
+[sp1                         ]
+}
+END -- GRID
+GROUP
+GRID
+{
+[::titl                  ::]
+----------------------------
+<S menu                    >
+ [a |a001                 ]
+ [  |a002                 ]
+ [""]
+}
+END -- GRID
+END -- GROUP
+GRID
+{
+[sp2                         ]
+}
+END -- GRID
+END -- HBOX
+
+ATTRIBUTES
+
+IMAGE sp1 : sp1, STRETCH=X;
+IMAGE sp2 : sp2, STRETCH=X;
+
+LABEL titl = FORMONLY.menu_title, STYLE="heading", SIZEPOLICY=FIXED;
+
+--TABLE menu : menu, STYLE="menu";
+SCROLLGRID menu : menu, STYLE="menu darkblue", WANTFIXEDPAGESIZE=NO;
+
+PHANTOM FORMONLY.a01;
+PHANTOM FORMONLY.a02;
+PHANTOM FORMONLY.a03;
+LABEL a001 = FORMONLY.a04, SIZEPOLICY=FIXED, STYLE="menuline1";
+LABEL a002 = FORMONLY.a05, SIZEPOLICY=FIXED, STYLE="menuline2";
+IMAGE a = FORMONLY.img, STYLE="bigicon", AUTOSCALE, WIDTH=48 PIXELS;
+PHANTOM FORMONLY.a07;
+PHANTOM FORMONLY.a08;
+PHANTOM FORMONLY.a09;
+
+INSTRUCTIONS
+SCREEN RECORD menu ( FORMONLY.a01 THRU FORMONLY.a09 )

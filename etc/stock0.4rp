@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report:Report xmlns:rtl="http://www.4js.com/2004/RTL" xmlns:report="http://www.4js.com/2007/REPORT" xmlns="http://www.4js.com/2004/PXML" gstVersion="40100" version="7.00">
+    <report:Settings RWPageWidth="letterlength" RWPageLength="letterwidth" RWLeftMargin="0.5inch" RWTopMargin="0.5inch" RWRightMargin="0.5inch" RWBottomMargin="0.5inch">
+        <report:FormatList>
+            <report:Format-SVG/>
+            <report:Format-PDF/>
+            <report:Format-image/>
+        </report:FormatList>
+    </report:Settings>
+    <report:Data RWDataLocation="../src/stk_mnt.rdd" RWFglReportName="rpt1"/>
+    <report:Conflicts/>
+    <rtl:stylesheet>
+        <PXML>
+            <rtl:match name="Report" nameConstraint="Report" minOccurs="1" maxOccurs="1">
+                <MINIPAGE name="Page Root" width="max" length="max">
+                    <LAYOUTNODE name="First Page Header" width="max" length="min" port="firstPageHeader">
+                        <MINIPAGE name="StripeLayouter3" width="min" length="max" layoutDirection="leftToRight">
+                            <rtl:input-variable name="l_rptTitle" type="FGLString" expectedLocation="expectedAhead"/>
+                            <WORDBOX name="Report Title" x="0" y="max/2" anchorX="0" anchorY="0.5" alignment="baseline" fontSize="25" baselineType="leftleft" floatingBehavior="enclosed" text="{{l_rptTitle}}"/>
+                            <PAGENOBOX name="PageNoBox" x="1.23857" y="max" anchorX="0" anchorY="1" alignment="baseline" baselineType="leftleft" floatingBehavior="enclosed" textAlignment="right"/>
+                        </MINIPAGE>
+                        <MINIPAGE name="Separator" width="1" length="max" bgColor="#000000" layoutDirection="leftToRight"/>
+                    </LAYOUTNODE>
+                    <LAYOUTNODE name="AnyPAgeHeader" width="min" length="max" layoutDirection="leftToRight" port="anyPageHeader" floatingBehavior="enclosed">
+                        <WORDBOX name="WordBox" y="max/2" anchorY="0.5" floatingBehavior="enclosed" text="Insert your text here"/>
+                        <MINIPAGE name="MiniPage" width="min" length="min" layoutDirection="leftToRight"/>
+                    </LAYOUTNODE>
+                    <LAYOUTNODE name="Footer" width="min" length="max" layoutDirection="leftToRight" port="anyPageFooter" floatingBehavior="enclosed">
+                        <WORDBOX name="WordBox1" fontSize="6" floatingBehavior="enclosed" text="Copyright NJM 2022"/>
+                    </LAYOUTNODE>
+                    <rtl:match name="FirstPageHeader" nameConstraint="FirstPageHeader" minOccurs="0" maxOccurs="1"/>
+                    <rtl:match name="Group stock_cat" nameConstraint="Group" minOccurs="0" maxOccurs="unbounded">
+                        <LAYOUTNODE name="GroupHeading" width="min" length="max" layoutDirection="leftToRight" floatingBehavior="enclosed" paddingTopWidth="5" paddingBottomWidth="5" borderWidth="0" borderBottomWidth="1" borderStyle="solid">
+                            <rtl:input-variable name="l_cat_desc" type="FGLString" expectedLocation="expectedHere"/>
+                            <WORDWRAPBOX name="l_cat_desc Value" designHints="fieldName:l_cat_desc;fieldRole:FormFieldValue" class="grwStringValue" width="width(&quot;M&quot;)*20" floatingBehavior="enclosed" text="{{l_cat_desc}}"/>
+                        </LAYOUTNODE>
+                        <MINIPAGE name="Table Header" class="grwTableHeader" width="min" length="max" layoutDirection="leftToRight">
+                            <WORDBOX name="Spacer" alignment="baseline" baselineType="leftleft" port="itemSeparator" text=" "/>
+                            <WORDBOX name="l_stk.stock_code Title" designHints="fieldName:l_stk.stock_code;fieldRole:TableColumnTitle" class="grwTableStringColumnTitle" width="{max(width(&quot;{&quot;Stk Code&quot;.translate()}&quot;),width(&quot;M&quot;)*8)}" floatingBehavior="enclosed" text="Stock Code" localizeText="true"/>
+                            <WORDBOX name="l_stk.pack_flag Title" designHints="fieldName:l_stk.pack_flag;fieldRole:TableColumnTitle" class="grwTableStringColumnTitle" width="{max(width(&quot;{&quot;Pack Flag&quot;.translate()}&quot;),width(&quot;W&quot;)*1)}" floatingBehavior="enclosed" text="Pack Flag" localizeText="true"/>
+                            <WORDBOX name="l_stk.description Title" designHints="fieldName:l_stk.description;fieldRole:TableColumnTitle" class="grwTableStringColumnTitle" width="{max(width(&quot;{&quot;Description&quot;.translate()}&quot;),width(&quot;M&quot;)*30)}" floatingBehavior="enclosed" text="Description" localizeText="true"/>
+                            <WORDBOX name="l_stk.free_stock Title" designHints="fieldName:l_stk.free_stock;fieldRole:TableColumnTitle" class="grwTableNumericColumnTitle" y="400" width="70" floatingBehavior="enclosed" textAlignment="right" text="Free Stock" localizeText="true"/>
+                        </MINIPAGE>
+                        <rtl:match name="OnEveryRow" nameConstraint="OnEveryRow" minOccurs="0" maxOccurs="unbounded">
+                            <MINIPAGE name="Table Row" class="grwTableRow" width="min" length="max" layoutDirection="leftToRight">
+                                <WORDBOX name="Spacer_1" alignment="baseline" baselineType="leftleft" port="itemSeparator" text=" "/>
+                                <rtl:input-variable name="l_stk.stock_code" type="FGLString" expectedLocation="expectedHere"/>
+                                <WORDBOX name="l_stk.stock_code Value" designHints="fieldName:l_stk.stock_code;fieldRole:TableColumnValue" class="grwStringValue" width="{max(width(&quot;{&quot;Stk Code&quot;.translate()}&quot;),width(&quot;M&quot;)*8)}" floatingBehavior="enclosed" text="{{l_stk.stock_code}}"/>
+                                <rtl:input-variable name="l_stk.pack_flag" type="FGLString" expectedLocation="expectedHere"/>
+                                <WORDBOX name="l_stk.pack_flag Value" designHints="fieldName:l_stk.pack_flag;fieldRole:TableColumnValue" class="grwStringValue" width="{max(width(&quot;{&quot;Pack Flag&quot;.translate()}&quot;),width(&quot;W&quot;)*1)}" floatingBehavior="enclosed" text="{{l_stk.pack_flag}}"/>
+                                <rtl:input-variable name="l_stk.description" type="FGLString" expectedLocation="expectedHere"/>
+                                <WORDBOX name="l_stk.description Value" designHints="fieldName:l_stk.description;fieldRole:TableColumnValue" class="grwStringValue" width="{max(width(&quot;{&quot;Description&quot;.translate()}&quot;),width(&quot;M&quot;)*30)}" floatingBehavior="enclosed" text="{{l_stk.description}}"/>
+                                <rtl:input-variable name="l_stk.free_stock" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                <DECIMALFORMATBOX name="l_stk.free_stock Value" designHints="fieldName:l_stk.free_stock;fieldRole:TableColumnValue" class="grwTableNumericColumnValue" y="400" width="70" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="----------#" value="{{l_stk.free_stock}}"/>
+                                <rtl:input-variable name="l_stk.barcode" type="FGLString" expectedLocation="expectedHere"/>
+                                <BARCODEBOX name="BarCodeBox" y="600" width="107.85" length="38.8241" floatingBehavior="enclosed" codeType="ean-13" codeValue="{{l_stk.barcode}}"/>
+                            </MINIPAGE>
+                        </rtl:match>
+                        <LAYOUTNODE name="GroupFooter" width="min" length="max" layoutDirection="leftToRight" floatingBehavior="enclosed">
+                            <WORDBOX name="l_cat_row Title" designHints="fieldName:l_cat_row;fieldRole:FormFieldTitle" class="grwTableNumericColumnTitle" floatingBehavior="enclosed" textAlignment="right" text="Items:" localizeText="true"/>
+                            <rtl:input-variable name="l_cat_row" type="FGLNumeric" expectedLocation="expectedBefore"/>
+                            <DECIMALFORMATBOX name="l_cat_row Value" designHints="fieldName:l_cat_row;fieldRole:TableColumnValue" class="grwTableNumericColumnValue" width="{max(width(&quot;{&quot;L Cat Row&quot;.translate()}&quot;),width(&quot;-00000&quot;))}" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="-----#" value="{{l_cat_row}}"/>
+                            <rtl:input-variable name="l_tot_free_stock" type="FGLNumeric" expectedLocation="expectedBefore"/>
+                            <DECIMALFORMATBOX name="l_tot_free_stock Value" designHints="fieldName:l_tot_free_stock;fieldRole:FormFieldValue" class="grwNumericValue" y="400" width="70" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="----------#" value="{{l_tot_free_stock}}"/>
+                        </LAYOUTNODE>
+                    </rtl:match>
+                </MINIPAGE>
+            </rtl:match>
+        </PXML>
+    </rtl:stylesheet>
+</report:Report>

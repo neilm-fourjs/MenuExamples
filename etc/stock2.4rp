@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report:Report xmlns:rtl="http://www.4js.com/2004/RTL" xmlns:report="http://www.4js.com/2007/REPORT" xmlns="http://www.4js.com/2004/PXML" gstVersion="40100" version="7.00">
+    <report:Settings RWPageWidth="letterlength" RWPageLength="letterwidth" RWLeftMargin="0.5inch" RWTopMargin="0.5inch" RWRightMargin="0.5inch" RWBottomMargin="0.5inch">
+        <report:FormatList>
+            <report:Format-SVG/>
+            <report:Format-PDF/>
+            <report:Format-image/>
+        </report:FormatList>
+    </report:Settings>
+    <report:Data RWDataLocation="../src/stk_mnt.rdd" RWFglReportName="rpt1"/>
+    <report:Conflicts/>
+    <rtl:stylesheet>
+        <PXML>
+            <rtl:match name="Report" nameConstraint="Report" minOccurs="1" maxOccurs="1">
+                <rtl:match name="FirstPageHeader" nameConstraint="FirstPageHeader" minOccurs="0" maxOccurs="1"/>
+                <rtl:match name="Group stock_cat" nameConstraint="Group" minOccurs="0" maxOccurs="unbounded">
+                    <MINIPAGE name="Page Root" width="max" length="max" fontName="Roboto" fontSize="16">
+                        <LAYOUTNODE name="Page Header" width="max" length="min" port="anyPageHeader">
+                            <MINIPAGE name="StripeLayouter3" width="min" length="max" layoutDirection="leftToRight">
+                                <rtl:input-variable name="l_rptTitle" type="FGLString" expectedLocation="expectedBefore"/>
+                                <WORDBOX name="Report Title" x="0" y="max/2" anchorX="0" anchorY="0.5" alignment="baseline" fontSize="25" fontBold="true" baselineType="leftleft" floatingBehavior="enclosed" text="{{l_rptTitle}}"/>
+                                <PAGENOBOX name="PageNoBox" x="1.23857" y="max" anchorX="0" anchorY="1" alignment="baseline" baselineType="leftleft" floatingBehavior="enclosed" textAlignment="right"/>
+                            </MINIPAGE>
+                            <MINIPAGE name="Separator" width="1" length="max" bgColor="#000000" layoutDirection="leftToRight"/>
+                            <LAYOUTNODE name="LayoutNode" x="max/2" width="min" length="min" anchorX="0.5" layoutDirection="leftToRight" floatingBehavior="enclosed">
+                                <rtl:input-variable name="l_cat_desc" type="FGLString" expectedLocation="expectedHere"/>
+                                <WORDWRAPBOX name="l_cat_desc Value" designHints="fieldName:l_cat_desc;fieldRole:FormFieldValue" class="grwStringValue" width="width(&quot;M&quot;)*20" fontSize="20" fontBold="true" floatingBehavior="enclosed" text="{{l_cat_desc}}" textAlignment="center"/>
+                            </LAYOUTNODE>
+                            <MINIPAGE name="Table Header" class="grwTableHeader" width="min" length="max" layoutDirection="leftToRight" paddingTopWidth="10">
+                                <WORDBOX name="Spacer" alignment="baseline" baselineType="leftleft" port="itemSeparator" text=" "/>
+                                <WORDBOX name="l_stk.description Title" designHints="fieldName:l_stk.description;fieldRole:TableColumnTitle" class="grwTableStringColumnTitle" width="{max(width(&quot;{&quot;Description&quot;.translate()}&quot;),width(&quot;M&quot;)*30)}" underline="true" floatingBehavior="enclosed" text="Description" localizeText="true"/>
+                                <WORDBOX name="l_stk.price Title" designHints="fieldName:l_stk.price;fieldRole:TableColumnTitle" class="grwTableNumericColumnTitle" width="{max(width(&quot;{&quot;Price&quot;.translate()}&quot;),width(&quot;-0,000,000,000.00&quot;))}" anchorX="1" underline="true" floatingBehavior="enclosed" textAlignment="right" text="Price" localizeText="true"/>
+                            </MINIPAGE>
+                        </LAYOUTNODE>
+                        <rtl:match name="OnEveryRow" nameConstraint="OnEveryRow" minOccurs="0" maxOccurs="unbounded">
+                            <MINIPAGE name="Table Row" class="grwTableRow" width="min" length="max" layoutDirection="leftToRight">
+                                <WORDBOX name="Spacer_1" alignment="baseline" baselineType="leftleft" port="itemSeparator" text=" "/>
+                                <rtl:input-variable name="l_stk.description" type="FGLString" expectedLocation="expectedHere"/>
+                                <WORDBOX name="l_stk.description Value" designHints="fieldName:l_stk.description;fieldRole:TableColumnValue" class="grwStringValue" width="{max(width(&quot;{&quot;Description&quot;.translate()}&quot;),width(&quot;M&quot;)*30)}" floatingBehavior="enclosed" text="{{l_stk.description}}"/>
+                                <rtl:input-variable name="l_stk.price" type="FGLNumeric" expectedLocation="expectedHere"/>
+                                <DECIMALFORMATBOX name="l_stk.price Value" designHints="fieldName:l_stk.price;fieldRole:TableColumnValue" class="grwTableNumericColumnValue" width="{max(width(&quot;{&quot;Price&quot;.translate()}&quot;),width(&quot;-0,000,000,000.00&quot;))}" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="-,---,---,--&amp;.&amp;&amp;" value="{{l_stk.price}}"/>
+                            </MINIPAGE>
+                        </rtl:match>
+                        <LAYOUTNODE name="Footer" y="max" width="min" length="min" anchorY="1" layoutDirection="leftToRight" floatingBehavior="enclosed">
+                            <LAYOUTNODE name="Footer items" width="min" length="max" layoutDirection="leftToRight" floatingBehavior="enclosed">
+                                <WORDBOX name="WordBox1" width="50" floatingBehavior="enclosed" text="Items: "/>
+                                <rtl:input-variable name="l_cat_row" type="FGLNumeric" expectedLocation="expectedBefore"/>
+                                <DECIMALFORMATBOX name="l_row Value" designHints="fieldName:l_row;fieldRole:FormFieldValue" class="grwNumericValue" anchorX="1" floatingBehavior="enclosed" textAlignment="right" format="----------#" value="{{l_cat_row}}"/>
+                            </LAYOUTNODE>
+                        </LAYOUTNODE>
+                    </MINIPAGE>
+                </rtl:match>
+            </rtl:match>
+        </PXML>
+    </rtl:stylesheet>
+</report:Report>

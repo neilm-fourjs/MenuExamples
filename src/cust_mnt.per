@@ -1,0 +1,118 @@
+
+&include "schema.inc"
+
+TOOLBAR
+	ITEM quit
+	SEPARATOR
+	ITEM save
+	ITEM accept
+	ITEM cancel
+	SEPARATOR
+	ITEM lookup
+	ITEM search
+	ITEM first
+	ITEM previous
+	ITEM next
+	ITEM last
+	SEPARATOR
+	ITEM delete
+	ITEM update
+	ITEM insert
+	ITEM report
+	SEPARATOR
+	ITEM about
+END -- TB
+
+LAYOUT ( TEXT="Customer Maint", STYLE="main2" )
+VBOX
+HBOX (SPLITTER, SPLIT@SMALL)
+TABLE tab1 (FLIPPED@SMALL)
+{
+[a01     |a02                     ]
+}
+END -- TABLE
+GRID
+{
+[cc      |f01       ]
+[cn      |f02                                                   ]
+<G grp1                                                          >
+[l03     |f03                                                   ]
+[l04     |f04                                                   ]
+[l05     |f5                      ]
+[l06     |f06        ]
+[l07     |f07        ]
+[oa      |f08        ]
+<                                                                >
+<G grp2                                                          >
+[adr     |f09                                                   ]
+         [f10                                                   ]
+         [f11                                                   ]
+         [f12                                                   ]
+[l13     |f13     ]
+[l14     |f14]
+}
+END -- GRID
+END -- HBOX
+GRID
+{
+[stat                                                            ]
+}
+END -- GRID
+END -- VBOX
+
+TABLES
+customers
+
+ATTRIBUTES
+
+LABEL cc  : cust_code, TEXT=%"Code:", JUSTIFY=RIGHT, SIZEPOLICY=DYNAMIC;
+LABEL cn  : cust_name, TEXT=%"Name:", JUSTIFY=RIGHT;
+f01 = customers.cust_code, UPSHIFT, NOT NULL, REQUIRED, PLACEHOLDER="A unique id", TABINDEX=1;
+f02 = customers.cust_name, STYLE="big bold";
+
+GROUP grp1 : group1, TEXT=%"Details", GRIDCHILDRENINPARENT, HIDDEN;
+LABEL l03 : cont_name, TEXT=%"Contact:", JUSTIFY=RIGHT;
+LABEL l04 : email, TEXT=%"Email:", JUSTIFY=RIGHT;
+LABEL l05 : disc_code, TEXT=%"Disc Code:", JUSTIFY=RIGHT;
+LABEL l06 : credit_limit, TEXT=%"Credit Limit:", JUSTIFY=RIGHT;
+LABEL l07 : total_invoices, TEXT=%"Invoices:", JUSTIFY=RIGHT;
+LABEL oa  : outstanding_amount, TEXT=%"Outstanding:", JUSTIFY=RIGHT;
+f03 = customers.cont_name;
+f04 = customers.email, KEYBOARDHINT=EMAIL, PLACEHOLDER="some@somewhere.com";
+COMBOBOX f5  = customers.disc_code, INITIALIZER=pop_combo, NOT NULL;
+f06 = customers.credit_limit, KEYBOARDHINT=NUMBER;
+f07 = customers.total_invoices, NOENTRY;
+f08 = customers.outstanding_amount, NOENTRY;
+
+GROUP grp2 : grp2, TEXT=%"Address", GRIDCHILDRENINPARENT;
+LABEL adr : addr_line1, TEXT=%"Address:", JUSTIFY=RIGHT;
+LABEL l13 : postal_sort, TEXT=%"Post Code:", JUSTIFY=RIGHT;
+LABEL l14 : country, TEXT=%"Country:", JUSTIFY=RIGHT;
+f09 = customers.addr_line1;
+f10 = customers.addr_line2;
+f11 = customers.addr_line3;
+f12 = customers.addr_line4;
+f13 = customers.postal_sort, SAMPLE="i";
+f14 = customers.country;
+
+LABEL stat = FORMONLY.stat, STYLE="stat", SIZEPOLICY=DYNAMIC;
+
+-- Customer array
+a01 = FORMONLY.a_cust_code, TITLE=%"Code", TABINDEX=0;
+a02 = FORMONLY.a_cust_name, TITLE=%"Name", TABINDEX=0;
+PHANTOM FORMONLY.a_cont_name;
+PHANTOM FORMONLY.a_EMAIL;
+PHANTOM FORMONLY.a_disc_code;
+PHANTOM FORMONLY.a_credit_limit;
+PHANTOM FORMONLY.a_total_invoices;
+PHANTOM FORMONLY.a_outstanding_amount;
+PHANTOM FORMONLY.a_addr_line1;
+PHANTOM FORMONLY.a_addr_line2;
+PHANTOM FORMONLY.a_addr_line3;
+PHANTOM FORMONLY.a_addr_line4;
+PHANTOM FORMONLY.a_postal_sort;
+PHANTOM FORMONLY.a_country;
+
+INSTRUCTIONS
+DEFAULT SAMPLE = "i"
+SCREEN RECORD arr ( FORMONLY.a_cust_code THRU FORMONLY.a_country )

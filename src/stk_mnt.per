@@ -1,0 +1,137 @@
+&include "schema.inc"
+
+TOOLBAR
+        ITEM quit
+        SEPARATOR
+        ITEM save
+        ITEM accept
+        ITEM cancel
+        SEPARATOR
+        ITEM lookup
+        ITEM search
+        ITEM first
+        ITEM previous
+        ITEM next
+        ITEM last
+        SEPARATOR
+        ITEM delete
+        ITEM update
+        ITEM insert
+        ITEM report
+        SEPARATOR
+        ITEM about
+END -- TB
+
+LAYOUT ( TEXT="Stock Maint", STYLE="main2" )
+VBOX
+HBOX (SPLITTER, SPLIT@SMALL)
+TABLE tab1 (FLIPPED@SMALL)
+{
+[a01     |a02        |a03                ]
+}
+END -- TABLE
+GRID
+{
+[scd     |f01       ]
+[sct     |f02       ]
+[sdr     |f03                                ]
+[""]
+[pfg     |f04]
+[spc     |f05       ]
+[bcd     |f06          ]
+[ccd     |f07       ]
+[""]
+[spr     |f08          ]
+[scs     |f09          ]
+[""]
+[stc     |f10]
+[sdc     |f11]
+<G "Stock Levels"                        >
+ [sps        ][sas        ][sfs        ]
+ [f12        ][f13        ][f14        ]
+<                                        >
+[sld           ]
+[f15                                                        ]
+[sim           ]
+[f16                                                        ]
+}
+END -- GRID
+END -- HBOX
+GRID
+{
+[stat                                                            ]
+}
+END -- GRID
+END -- VBOX
+
+TABLES
+stock
+
+ATTRIBUTES
+
+LABEL scd  : stock_code, TEXT=%"Code:", JUSTIFY=RIGHT, SIZEPOLICY=DYNAMIC;
+LABEL sct  : stock_cat, TEXT=%"Category:", JUSTIFY=RIGHT;
+LABEL sdr  : description, TEXT=%"Description:", JUSTIFY=RIGHT;
+
+LABEL pfg  : pack_flag, TEXT=%"Pack Flag:", JUSTIFY=RIGHT;
+LABEL spc  : supp_code, TEXT=%"Supplier:", JUSTIFY=RIGHT;
+LABEL bcd  : barcode, TEXT=%"Barcode:", JUSTIFY=RIGHT;
+LABEL ccd  : colour_code, TEXT=%"Colour Code:", JUSTIFY=RIGHT;
+
+LABEL spr  : price, TEXT=%"Price:", JUSTIFY=RIGHT;
+LABEL scs  : cost, TEXT=%"Cost:", JUSTIFY=RIGHT;
+
+LABEL stc  : tax_code, TEXT=%"Tax Code:", JUSTIFY=RIGHT;
+LABEL sdc  : disc_code, TEXT=%"Disc Code:", JUSTIFY=RIGHT;
+
+LABEL sps  : physical_stock, TEXT=%"Physical", JUSTIFY=CENTER;
+LABEL sas  : allocated_stock, TEXT=%"Allocated", JUSTIFY=CENTER;
+LABEL sfs  : free_stock, TEXT=%"Free", JUSTIFY=CENTER;
+
+LABEL sld  : long_desc, TEXT=%"Long Description:";
+LABEL sim  : img_url, TEXT=%"Image URI:";
+
+f01 = stock.stock_code, UPSHIFT, NOT NULL, REQUIRED, PLACEHOLDER="A unique id", TABINDEX=1;
+COMBOBOX f02 = stock.stock_cat, NOT NULL, INITIALIZER=setCombo;
+f03 = stock.description, STYLE="big bold";
+
+f04 = stock.pack_flag;
+f05 = stock.supp_code;
+f06 = stock.barcode;
+f07 = stock.colour_code;
+
+f08 = stock.price;
+f09 = stock.cost;
+
+f10 = stock.tax_code;
+f11 = stock.disc_code;
+
+f12 = stock.physical_stock;
+f13 = stock.allocated_stock;
+f14 = stock.free_stock;
+f15 = stock.long_desc;
+f16 = stock.img_url;
+
+LABEL stat = FORMONLY.stat, STYLE="stat", SIZEPOLICY=DYNAMIC;
+
+-- Customer array
+a01 = FORMONLY.a_stock_code, TITLE=%"Code", TABINDEX=0;
+a02 = FORMONLY.a_stock_cat, TITLE=%"Cat", TABINDEX=0;
+PHANTOM FORMONLY.a_pack_flag;
+PHANTOM FORMONLY.a_supp_code;
+PHANTOM FORMONLY.a_barcode;
+a03 = FORMONLY.a_description, TITLE=%"Name", TABINDEX=0;
+PHANTOM FORMONLY.a_colour_code;
+PHANTOM FORMONLY.a_price;
+PHANTOM FORMONLY.a_cost;
+PHANTOM FORMONLY.a_tax_code;
+PHANTOM FORMONLY.a_disc_code;
+PHANTOM FORMONLY.a_physical_stock;
+PHANTOM FORMONLY.a_allocated_stock;
+PHANTOM FORMONLY.a_free_stock;
+PHANTOM FORMONLY.a_long_desc;
+PHANTOM FORMONLY.a_img_url;
+
+INSTRUCTIONS
+DEFAULT SAMPLE = "i"
+SCREEN RECORD arr ( FORMONLY.a_stock_code THRU FORMONLY.a_img_url )

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="ANSI_X3.4-1968"?>
+<StyleList>
+  <Style name="HBox">
+     <StyleAttribute name="navigationArrows" value="yes" />
+  </Style>
+  <Style name=".stat">
+     <StyleAttribute name="fontSize" value="1.2em" />
+     <StyleAttribute name="fontWeight" value="normal" />
+  </Style>
+
+  <Style name=".big">
+     <StyleAttribute name="fontSize" value="1.2em" />
+  </Style>
+  <Style name=".bold">
+     <StyleAttribute name="fontWeight" value="bold" />
+  </Style>
+  <Style name="Label">
+     <StyleAttribute name="fontWeight" value="bold" />
+     <StyleAttribute name="textColor" value="darkblue" />
+  </Style>
+
+  <Style name="Table.menu">
+    <StyleAttribute name="headerHidden" value="yes" />
+    <StyleAttribute name="highlightCurrentRow" value="no" />
+    <StyleAttribute name="highlightCurrentCell" value="no"/>
+     <StyleAttribute name="fontSize" value="1.5em" />
+  </Style>
+
+	<Style name="UserInterface.sdi"> <!-- SDI -->
+		<StyleAttribute name="desktopMultiWindow" value="yes"/>
+		<StyleAttribute name="browserMultiPage" value="yes"/>
+		<StyleAttribute name="applicationListVisible" value="no"/>
+		<StyleAttribute name="windowListVisible" value="no"/>
+	</Style>
+
+	<Style name="UserInterface.mdi"> <!-- MDI -->
+		<StyleAttribute name="desktopMultiWindow" value="no"/>
+		<StyleAttribute name="browserMultiPage" value="no"/>
+		<StyleAttribute name="applicationListVisible" value="yes"/>
+		<StyleAttribute name="windowListVisible" value="yes"/>
+	</Style>
+
+	<Style name="UserInterface.sm"> <!-- StartMenu -->
+		<StyleAttribute name="desktopMultiWindow" value="no"/>
+		<StyleAttribute name="browserMultiPage" value="no"/>
+		<StyleAttribute name="applicationListVisible" value="no"/>
+		<StyleAttribute name="windowListVisible" value="no"/>
+	</Style>
+
+	<Style name="Image">
+		<StyleAttribute name="border" value="none"/>
+	</Style>
+
+	<Style name="Label.menuline1">
+		<StyleAttribute name="fontSize" value="1.5em" />
+		<StyleAttribute name="textColor" value="darkblue" />
+		<StyleAttribute name="fontWeight" value="normal" />
+	</Style>
+	<Style name="Label.menuline2">
+		<StyleAttribute name="fontSize" value="1em" />
+		<StyleAttribute name="fontStyle" value="italic" />
+		<StyleAttribute name="textColor" value="grey" />
+		<StyleAttribute name="fontWeight" value="normal" />
+	</Style>
+
+  <Style name="Label.heading">
+     <StyleAttribute name="fontSize" value="2em" />
+  </Style>
+
+  <Style name="Window.menu">
+		<StyleAttribute name="startMenuPosition" value="tree"/>
+		<StyleAttribute name="tabbedContainer" value="yes" />
+  </Style>
+
+<!-- Default Styles -->
+  <Style name="Window">
+     <StyleAttribute name="windowType" value="normal" />
+  </Style>
+  <Style name="Window.main">
+     <StyleAttribute name="windowType" value="normal" />
+     <StyleAttribute name="startMenuPosition" value="menu" />
+  </Style>
+  <Style name="Window.main2">
+     <StyleAttribute name="windowType" value="normal" />
+     <StyleAttribute name="actionPanelPosition" value="none" />
+     <StyleAttribute name="ringMenuPosition" value="none" />
+  </Style>
+  <Style name="Window.dialog">
+     <StyleAttribute name="windowType" value="modal" />
+     <StyleAttribute name="sizable" value="no" />
+     <StyleAttribute name="position" value="center" />
+     <StyleAttribute name="actionPanelPosition" value="bottom" />
+     <StyleAttribute name="ringMenuPosition" value="bottom" />
+     <StyleAttribute name="toolBarPosition" value="none" />
+  </Style>
+  <Style name="Window.dialog2">
+     <StyleAttribute name="windowType" value="modal" />
+     <StyleAttribute name="sizable" value="no" />
+     <StyleAttribute name="position" value="center" />
+     <StyleAttribute name="actionPanelPosition" value="none" />
+     <StyleAttribute name="ringMenuPosition" value="none" />
+     <StyleAttribute name="toolBarPosition" value="none" />
+  </Style>
+  <Style name="Window.dialog3">
+     <StyleAttribute name="windowType" value="modal" />
+     <StyleAttribute name="sizable" value="yes" />
+     <StyleAttribute name="toolBarPosition" value="none" />
+     <StyleAttribute name="actionPanelPosition" value="bottom" />
+     <StyleAttribute name="ringMenuPosition" value="none" />
+  </Style>
+  <Style name="Window.dialog4">
+     <StyleAttribute name="windowType" value="modal" />
+     <StyleAttribute name="sizable" value="yes" />
+     <StyleAttribute name="actionPanelPosition" value="bottom" />
+     <StyleAttribute name="ringMenuPosition" value="none" />
+  </Style>
+  <Style name="Window.naked">
+     <StyleAttribute name="windowType" value="modal" />
+     <StyleAttribute name="actionPanelPosition" value="none" />
+     <StyleAttribute name="ringMenuPosition" value="none" />
+     <StyleAttribute name="toolBarPosition" value="none" />
+  </Style>
+  <Style name="Window.viewer">
+     <StyleAttribute name="windowType" value="modal" />
+     <StyleAttribute name="sizable" value="yes" />
+     <StyleAttribute name="actionPanelPosition" value="none" />
+     <StyleAttribute name="ringMenuPosition" value="none" />
+     <StyleAttribute name="toolBarPosition" value="none" />
+  </Style>
+</StyleList>
