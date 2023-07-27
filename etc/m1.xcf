@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<APPLICATION Parent="defaultgwc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.4js.com/ns/gas/4.01/cfextwa.xsd">
+	<EXECUTION>
+		<ENVIRONMENT_VARIABLE Id="FGLRESOURCEPATH">../etc</ENVIRONMENT_VARIABLE>
+		<PATH>$(res.deployment.path)/bin</PATH>
+		<MODULE>menu</MODULE>
+		<PARAMETERS>
+			<PARAMETER>M</PARAMETER>
+			<PARAMETER>menu_sg</PARAMETER>
+		</PARAMETERS>
+	</EXECUTION>
+</APPLICATION>

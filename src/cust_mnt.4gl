@@ -50,7 +50,6 @@ MAIN
 				END IF
 
 			BEFORE ROW
-				DISPLAY SFMT("Before Row %1", arr_curr())
 				CALL setRow(DIALOG, arr_curr()) RETURNING l_cust.*
 				IF l_started THEN
 					CALL ui.Interface.setText(SFMT("Cust: %1", l_cust.cust_code) )
@@ -215,7 +214,7 @@ END FUNCTION
 --------------------------------------------------------------------------------------------------------------
 FUNCTION setRow(d ui.Dialog, i INT) RETURNS(RECORD LIKE customers.*)
 	LET m_curRow = i
-	DISPLAY SFMT("Set Row %1", m_curRow)
+
 	CALL d.setCurrentRow("arr", m_curRow)
 
 	CALL d.setActionActive("previous", m_curRow > 1)

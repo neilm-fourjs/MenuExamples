@@ -111,6 +111,10 @@
     <Library binaryName="etc" id="-2072896198" label="etc">
       <File filePath="etc/default.4ad"/>
       <File filePath="etc/default.4st"/>
+      <File filePath="etc/m1.xcf"/>
+      <File filePath="etc/m2.xcf"/>
+      <File filePath="etc/m3.xcf"/>
+      <File filePath="etc/m4.xcf"/>
     </Library>
     <Library binaryName="Library" dependencies="1986,-2072896198" id="14000" label="Library">
       <File filePath="src/lib.4gl"/>
@@ -118,7 +122,7 @@
       <File filePath="src/rpt_settings.per"/>
       <File filePath="src/schema.inc"/>
     </Library>
-    <Package binaryName="MenuExamplesGar" dependencies="-1001935388,958747858,1257009096,18736,14000,-596818949,1986,-2072896198,-2092479918,1922628416" description="Menu Examples" id="-35518525" label="MenuExamplesGar" platform="Genero Application Server">
+    <Package binaryName="MenuExamples" dependencies="-1001935388,958747858,1257009096,18736,14000,-596818949,1986,-2072896198,-2092479918,1922628416" description="Menu Examples" id="-35518525" label="MenuExamples" platform="Genero Application Server">
       <DynamicProperty name="packageId" value="MenuExamples"/>
       <DynamicProperty name="packageLabel" value="MenuExamples"/>
       <Directory destinationDirectory="$(RootDir)/bin" excludedFiles="Test.42r" includedFiles="*.42?" label="Binaries" recursive="false" sourceDirectory="$(ProjectDir)/bin"/>

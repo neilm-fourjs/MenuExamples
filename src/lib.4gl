@@ -45,9 +45,15 @@ END FUNCTION
 --------------------------------------------------------------------------------------------------------------
 -- Initialize the program environment
 FUNCTION init() RETURNS()
+	OPTIONS ON CLOSE APPLICATION CALL fe_close
+	OPTIONS ON TERMINATE SIGNAL CALL be_close
 
 	LET m_debug_lev = 2
-	CALL log(1, SFMT("Program %1 Started - debug: %2", base.Application.getProgramName(), m_debug_lev))
+	CALL log(
+			1,
+			SFMT("Started: %1 (%2 - %3) debug: %4 A1: %5 A2: %6",
+					base.Application.getProgramName(), fgl_getpid(), fgl_getenv("FGL_VMPROXY_SESSION_ID"), m_debug_lev,
+					base.Application.getArgument(1), base.Application.getArgument(2)))
 
 -- don't bother switch MDI setting unless we are passed M or S
 	IF base.Application.getArgument(1) = "M" THEN
@@ -114,6 +120,15 @@ FUNCTION switch_mdi(l_mdi STRING)
 	CALL ui.Interface.refresh()
 --	CALL n_sl.writeXml("sl_2.xml")
 END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION fe_close()
+	CALL exit_program(0, "Closed by FrontEnd")
+END FUNCTION
+--------------------------------------------------------------------------------
+FUNCTION be_close()
+	CALL exit_program(0, "Closed by BackEnd")
+END FUNCTION
+
 --------------------------------------------------------------------------------------------------------------
 -- Exit the program and log the exit
 FUNCTION exit_program(l_stat SMALLINT, l_msg STRING) RETURNS()
@@ -221,7 +236,7 @@ FUNCTION report_setup(l_rptName STRING) RETURNS(om.SaxDocumentHandler)
 		CALL fgl_report_configurePDFDevice(
 				fontDirectory: "~/.fonts", antialiasFonts: TRUE, antialiasShapes: TRUE, monochrome: FALSE, fromPage: NULL,
 				toPage: NULL)
-		CALL fgl_report_configurePDFFontEmbedding( preferUnicodeEncoding: TRUE )
+		CALL fgl_report_configurePDFFontEmbedding(preferUnicodeEncoding: TRUE)
 	END IF
 	IF m_report_output = "XLS" THEN
 		CALL fgl_report_configureXLSDevice(
