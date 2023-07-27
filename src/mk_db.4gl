@@ -94,7 +94,7 @@ FUNCTION insertTestData()
 	CALL insMenu(0, "T", "enq", "Enquiry Programs", "", "", "main", "", "")
 	CALL insMenu(0, "F", "enq", "Customer Enquiry 1", "Enquiry on customers", "fa-users", "", "cust_mnt", "E")
 	CALL insMenu(0, "f", "enq", "Customer Enquiry 2", "Enquiry on customers (SDI)", "fa-users", "", "cust_mnt", "E")
-	CALL insMenu(0, "F", "enq", "Stock Enquiry", "Add/Update/Delete stock", "fa-diamond", "", "stk_mnt", "")
+	CALL insMenu(0, "F", "enq", "Stock Enquiry", "Add/Update/Delete stock", "fa-diamond", "", "stk_mnt", "E")
 
 	INSERT INTO countries VALUES("GBR", "Great Britain")
 
