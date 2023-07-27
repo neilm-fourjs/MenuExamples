@@ -87,6 +87,7 @@
           <File filePath="src/menu.4gl"/>
         </VirtualFolder>
         <Configuration binaryName="menu" commandLineArguments="m" id="450273192" label="Menu - MDI StartMenu"/>
+        <Configuration binaryName="menu" commandLineArguments="t" id="1908542218" label="Menu - MDI tabbed"/>
         <Configuration commandLineArguments="S" id="1916496889" label="Menu - SDI"/>
       </Application>
       <Application binaryName="menu_mnt" dependencies="-2072896198,14000,1986" id="-596818949" label="menu_mnt">

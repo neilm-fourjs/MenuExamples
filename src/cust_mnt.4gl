@@ -27,9 +27,8 @@ MAIN
 	CALL ui.Interface.setImage("fa-users")
 	OPEN FORM f FROM "cust_mnt"
 	DISPLAY FORM f
+	CALL ui.Window.getCurrent().setText(SFMT("%1 %2", ui.Window.getCurrent().getText(),IIF(l_mode="E","Enq","Maint")))
 	OPTIONS INPUT WRAP
-
-	CALL ui.Window.getCurrent().setText(SFMT("%1 - %2", ui.Window.getCurrent().getText(), TODAY) )
 
 	LET m_where = " 1=1"
 	CALL getData()

@@ -54,7 +54,7 @@ FUNCTION init() RETURNS()
 		LET m_mdi = TRUE
 		CALL switch_mdi("mdi")
 	END IF
-	IF base.Application.getArgument(1) = "m" THEN
+	IF base.Application.getArgument(1) = "m" OR base.Application.getArgument(1) = "t" THEN
 		LET m_mdi = TRUE
 		CALL switch_mdi("sm") -- startMenu
 	END IF

@@ -4,7 +4,7 @@ MAIN
 	DEFINE l_cmd STRING
 	DEFINE x SMALLINT
 	CALL lib.init()
-	LET l_cmd = SFMT("fglrun %1 .", base.Application.getArgument(2))
+	LET l_cmd = SFMT("fglrun %1", base.Application.getArgument(2))
 	FOR x = 3 TO base.Application.getArgumentCount()
 		LET l_cmd = l_cmd.append( SFMT(" %1", base.Application.getArgument(x)))
 	END FOR

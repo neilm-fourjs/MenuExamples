@@ -26,6 +26,7 @@ MAIN
 	CALL ui.Interface.setImage("fa-diamond")
 	OPEN FORM f FROM "stk_mnt"
 	DISPLAY FORM f
+	CALL ui.Window.getCurrent().setText(SFMT("%1 %2", ui.Window.getCurrent().getText(),IIF(l_mode="E","Enq","Maint")))
 	OPTIONS INPUT WRAP
 
 	LET m_where = " 1=1"
