@@ -16,31 +16,31 @@ This Demos was written in Genero V4 and updated for Genero V5 and should be used
 
 Menu
 
-![ss1](https://github.com/neilm-fourjs/MenuExamples/raw/master/pics/Menu_TableFlipped.png "SS1")
+![ss1](https://github.com/neilm-fourjs/MenuExamples/raw/main/pics/Menu_TableFlipped.png "SS1")
 
 Sidebar exanded and child program loaded
 
-![ss2](https://github.com/neilm-fourjs/MenuExamples/raw/master/pics/SideBarExanded_withChild.png "SS2")
+![ss2](https://github.com/neilm-fourjs/MenuExamples/raw/main/pics/SideBarExanded_withChild.png "SS2")
 
 ## Smaller Screen
 
 Menu
 
-![ss3](https://github.com/neilm-fourjs/MenuExamples/raw/master/pics/Menu_SmallWidth.png "SS3")
+![ss3](https://github.com/neilm-fourjs/MenuExamples/raw/main/pics/Menu_SmallWidth.png "SS3")
 
 Child program left screen section
 
-![ss4](https://github.com/neilm-fourjs/MenuExamples/raw/master/pics/Child_Small_1.png "SS4")
+![ss4](https://github.com/neilm-fourjs/MenuExamples/raw/main/pics/Child_Small_1.png "SS4")
 
 Child program right screen section
 
-![ss5](https://github.com/neilm-fourjs/MenuExamples/raw/master/pics/Child_Small_2.png "SS5")
+![ss5](https://github.com/neilm-fourjs/MenuExamples/raw/main/pics/Child_Small_2.png "SS5")
 
 A Classic StartMenu
 
-![ss6](https://github.com/neilm-fourjs/MenuExamples/raw/master/pics/StartMenu_withChild.png "SS6")
+![ss6](https://github.com/neilm-fourjs/MenuExamples/raw/main/pics/StartMenu_withChild.png "SS6")
 
 A Tabbed Container with Buttons for a Menul
 
-![ss7](https://github.com/neilm-fourjs/MenuExamples/raw/master/pics/Tabbed_ButtonMenu.png "SS7")
+![ss7](https://github.com/neilm-fourjs/MenuExamples/raw/main/pics/Tabbed_ButtonMenu.png "SS7")
 
