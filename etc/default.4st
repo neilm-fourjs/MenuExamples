@@ -23,7 +23,16 @@
     <StyleAttribute name="headerHidden" value="yes" />
     <StyleAttribute name="highlightCurrentRow" value="no" />
     <StyleAttribute name="highlightCurrentCell" value="no"/>
-     <StyleAttribute name="fontSize" value="1.5em" />
+    <StyleAttribute name="fontSize" value="1.5em" />
+  </Style>
+
+  <Style name="Table.menu_flipped">
+    <StyleAttribute name="headerHidden" value="yes" />
+    <StyleAttribute name="rowAspect" value="list" />
+    <StyleAttribute name="rowActionTrigger" value="singleClick" />
+    <StyleAttribute name="highlightCurrentRow" value="no" />
+    <StyleAttribute name="highlightCurrentCell" value="no"/>
+    <StyleAttribute name="fontSize" value="1.5em" />
   </Style>
 
 	<Style name="UserInterface.sdi"> <!-- SDI -->
@@ -70,6 +79,9 @@
   <Style name="Window.menu">
 		<StyleAttribute name="startMenuPosition" value="tree"/>
 		<StyleAttribute name="tabbedContainer" value="yes" />
+    <StyleAttribute name="actionPanelPosition" value="none" />
+    <StyleAttribute name="ringMenuPosition" value="none" />
+    <StyleAttribute name="toolBarPosition" value="none" />
   </Style>
   <Style name="Window.tabbed">
 		<StyleAttribute name="startMenuPosition" value="none"/>

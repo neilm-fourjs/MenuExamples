@@ -21,8 +21,10 @@ END RECORD
 DEFINE m_buts      SMALLINT = 0
 DEFINE m_menu_back LIKE menus.m_name
 MAIN
-	DEFINE x     SMALLINT
-	DEFINE l_cmd STRING
+	DEFINE x        SMALLINT
+	DEFINE l_cmd    STRING
+	DEFINE l_click  BOOLEAN
+	DEFINE l_curRow SMALLINT
 
 	RUN "env | sort > /tmp/env.gas"
 
@@ -31,11 +33,6 @@ MAIN
 
 	CALL lib.init()
 	CALL lib.db_connect()
-
-	DECLARE cur CURSOR FOR SELECT * FROM menus
-	FOREACH cur INTO m_menus[x := x + 1].*
-	END FOREACH
-	CALL m_menus.deleteElement(x) -- delete the last empty row
 
 	IF base.Application.getArgument(2) MATCHES "menu*" THEN
 		OPEN FORM f FROM base.Application.getArgument(2)
@@ -49,14 +46,17 @@ MAIN
 		CALL ui.Window.getCurrent().getNode().setAttribute("style", "tabbed")
 	END IF
 
+	CALL getMenu("main")
 	IF base.Application.getArgument(1) = "m" OR base.Application.getArgument(1) = "t" THEN
 		CALL buildStartMenu()
 	END IF
 
-	CALL getMenu("main")
+
 	DISPLAY ARRAY m_menu TO menu.* ATTRIBUTE(UNBUFFERED, FOCUSONFIELD, CANCEL = FALSE, ACCEPT = FALSE)
 		BEFORE DISPLAY
-			CALL DIALOG.setCurrentRow("menu", m_menu.getLength() + 1)
+			LET l_curRow = m_menu.getLength() + 1
+			CALL DIALOG.setCurrentRow("menu", l_curRow)
+			DISPLAY SFMT("BDisp SetRow: %1 CR: %2", l_curRow, DIALOG.getCurrentRow("menu"))
 			FOR x = 1 TO 15
 				IF m_buttons[x].text IS NOT NULL THEN
 					CALL DIALOG.setActionText("but" || (x USING "&&"), m_buttons[x].text)
@@ -66,26 +66,45 @@ MAIN
 					CALL DIALOG.setActionHidden("but" || (x USING "&&"), TRUE)
 				END IF
 			END FOR
+
+		BEFORE FIELD a04
+			DISPLAY SFMT("BField: %1", DIALOG.getCurrentRow("menu"))
+			LET l_click = FALSE
+
+		AFTER FIELD a04
+			DISPLAY SFMT("AField: %1", DIALOG.getCurrentRow("menu"))
+			LET l_click = TRUE
+
 		BEFORE ROW
-			LET x = arr_curr()
-			IF m_menu[x].m_text IS NOT NULL THEN
-				CALL lib.log(1, SFMT("Before row %1 '%2'", x, m_menu[x].m_text))
-				CASE m_menu[x].m_type
-					WHEN "f" -- SDI
-						LET l_cmd = SFMT("fglrun mdiSwitch S %1 %2", m_menu[x].m_cmd, m_menu[x].m_args)
-						CALL runProg(l_cmd)
-					WHEN "F" -- MDI
-						LET l_cmd = SFMT("fglrun %1 c %2", m_menu[x].m_cmd, m_menu[x].m_args)
-						CALL runProg(l_cmd)
-					WHEN "M"
-						CALL getMenu(m_menu[arr_curr()].m_child)
-					WHEN "Q"
-						EXIT DISPLAY
-					WHEN "B"
-						CALL getMenu(m_menu_back)
-				END CASE
+			DISPLAY SFMT("BRow: %1", DIALOG.getCurrentRow("menu"))
+			IF l_click THEN
+				LET l_curRow = DIALOG.getCurrentRow("menu")
+				IF m_menu[l_curRow].m_text IS NOT NULL THEN
+					CALL lib.log(1, SFMT("Before row %1 '%2'", l_curRow, m_menu[l_curRow].m_text))
+					CASE m_menu[l_curRow].m_type
+						WHEN "f" -- SDI
+							LET l_cmd = SFMT("fglrun mdiSwitch S %1 %2", m_menu[l_curRow].m_cmd, m_menu[l_curRow].m_args)
+							CALL runProg(l_cmd)
+						WHEN "F" -- MDI
+							LET l_cmd = SFMT("fglrun %1 c %2", m_menu[l_curRow].m_cmd, m_menu[l_curRow].m_args)
+							CALL runProg(l_cmd)
+						WHEN "M"
+							CALL getMenu(m_menu[l_curRow].m_child)
+						WHEN "Q"
+							EXIT DISPLAY
+						WHEN "B"
+							CALL getMenu(m_menu_back)
+					END CASE
+					LET l_curRow = m_menu.getLength() + 1
+					CALL DIALOG.setCurrentRow("menu", l_curRow)
+					DISPLAY SFMT("BRow SetRow: %1 CR: %2", l_curRow, DIALOG.getCurrentRow("menu"))
+				END IF
+			ELSE
+				DISPLAY "Ignore"
 			END IF
-			CALL DIALOG.setCurrentRow("menu", m_menu.getLength() + 1)
+
+		AFTER ROW
+			DISPLAY SFMT("ARow: %1", DIALOG.getCurrentRow("menu"))
 
 		ON ACTION but01
 			CALL runProg(m_buttons[1].exec)
@@ -135,6 +154,13 @@ END FUNCTION
 --------------------------------------------------------------------------------------------------------------
 FUNCTION getMenu(l_name STRING) RETURNS()
 	DEFINE x, y SMALLINT
+	IF m_menus.getLength() = 0 THEN -- Read Menus
+		DECLARE cur CURSOR FOR SELECT * FROM menus
+		FOREACH cur INTO m_menus[x := x + 1].*
+		END FOREACH
+		CALL m_menus.deleteElement(x) -- delete the last empty row
+	END IF
+
 	CALL m_menu.clear()
 	CALL lib.log(1, SFMT("Load menu '%1' ...", l_name))
 	FOR x = 1 TO m_menus.getLength()
@@ -169,7 +195,7 @@ FUNCTION buildStartMenu()
 
 	LET l_sm_root = ui.Interface.getRootNode()
 	LET l_sm_root = l_sm_root.createChild("StartMenu")
-
+	CALL lib.log(1, "buildStartMenu")
 	CALL buildStartMenuAdd(l_sm_root, "main")
 
 END FUNCTION
@@ -178,6 +204,7 @@ FUNCTION buildStartMenuAdd(l_sm_menu om.DomNode, l_menu STRING)
 	DEFINE x         SMALLINT
 	DEFINE l_cmd     STRING
 	DEFINE l_sm_item om.DomNode
+	CALL lib.log(1, SFMT("buildStartMenuAdd(%1) menu len: %2", l_menu, m_menus.getLength() ))
 	FOR x = 1 TO m_menus.getLength()
 		IF m_menus[x].m_name = l_menu THEN
 			IF m_menus[x].m_type = "M" THEN

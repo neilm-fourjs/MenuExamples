@@ -16,6 +16,7 @@ MAIN
 	DEFINE l_dirty       BOOLEAN = FALSE
 	DEFINE l_started     BOOLEAN = FALSE
 	DEFINE l_mode        CHAR(1)
+	DEFINE l_row         INTEGER
 
 	CALL lib.init()
 
@@ -32,6 +33,9 @@ MAIN
 
 	LET m_where = " 1=1"
 	CALL getData()
+	IF base.Application.getArgument(3) IS NOT NULL THEN
+		LET l_row = m_arr.search("cust_code",  base.Application.getArgument(3))
+	END IF
 
 	DIALOG ATTRIBUTES(UNBUFFERED)
 		DISPLAY ARRAY m_arr TO arr.*
@@ -47,6 +51,9 @@ MAIN
 					CALL DIALOG.setActionActive("insert", FALSE)
 					CALL DIALOG.setActionActive("delete", FALSE)
 					CALL DIALOG.setFieldActive("customers.*", FALSE) -- disable all the fields
+				END IF
+				IF l_row > 0 THEN
+					CALL DIALOG.setCurrentRow("arr",l_row)
 				END IF
 
 			BEFORE ROW
@@ -110,6 +117,9 @@ MAIN
 
 			ON ACTION update
 				NEXT FIELD cust_code
+
+			ON ACTION custenq
+				RUN "fglrun cust_mnt M E "||l_cust.cust_code
 
 		END DISPLAY
 

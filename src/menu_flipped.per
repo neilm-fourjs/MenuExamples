@@ -1,0 +1,50 @@
+
+LAYOUT (TEXT="Menu", STYLE="menu")
+HBOX
+GRID (HIDDEN@SMALL)
+{
+[sp1                         ]
+}
+END -- GRID
+GRID
+{
+[titl                   ]
+<T menu                                          >
+ [a001                 |a002                 ]
+ [a001                 |a002                 ]
+ [a001                 |a002                 ]
+ [a001                 |a002                 ]
+ [a001                 |a002                 ]
+ [a001                 |a002                 ]
+ [a001                 |a002                 ]
+ [a001                 |a002                 ]
+}
+END -- GRID
+GRID (HIDDEN@SMALL)
+{
+[sp2                         ]
+}
+END -- GRID
+END -- HBOX
+
+ATTRIBUTES
+
+IMAGE sp1 : sp1, STRETCH=X;
+IMAGE sp2 : sp2, STRETCH=X;
+
+LABEL titl = FORMONLY.menu_title, STYLE="heading";
+
+TABLE menu : menu, FLIPPED, STYLE="menu_flipped";
+
+PHANTOM FORMONLY.a01;
+PHANTOM FORMONLY.a02;
+PHANTOM FORMONLY.a03;
+LABEL a001 = FORMONLY.a04, IMAGECOLUMN=img, STYLE="menuline1";
+LABEL a002 = FORMONLY.a05, STYLE="menuline2";
+PHANTOM FORMONLY.img;
+PHANTOM FORMONLY.a07;
+PHANTOM FORMONLY.a08;
+PHANTOM FORMONLY.a09;
+
+INSTRUCTIONS
+SCREEN RECORD menu ( FORMONLY.a01 THRU FORMONLY.a09 )
