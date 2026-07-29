@@ -28,13 +28,14 @@ MAIN
 	CALL ui.Interface.setImage("fa-users")
 	OPEN FORM f FROM "cust_mnt"
 	DISPLAY FORM f
-	CALL ui.Window.getCurrent().setText(SFMT("%1 %2", ui.Window.getCurrent().getText(),IIF(l_mode="E","Enq","Maint")))
+	CALL ui.Window.getCurrent()
+			.setText(SFMT("%1 %2", ui.Window.getCurrent().getText(), IIF(l_mode = "E", "Enq", "Maint")))
 	OPTIONS INPUT WRAP
 
 	LET m_where = " 1=1"
 	CALL getData()
 	IF base.Application.getArgument(3) IS NOT NULL THEN
-		LET l_row = m_arr.search("cust_code",  base.Application.getArgument(3))
+		LET l_row = m_arr.search("cust_code", base.Application.getArgument(3))
 	END IF
 
 	DIALOG ATTRIBUTES(UNBUFFERED)
@@ -53,13 +54,13 @@ MAIN
 					CALL DIALOG.setFieldActive("customers.*", FALSE) -- disable all the fields
 				END IF
 				IF l_row > 0 THEN
-					CALL DIALOG.setCurrentRow("arr",l_row)
+					CALL DIALOG.setCurrentRow("arr", l_row)
 				END IF
 
 			BEFORE ROW
 				CALL setRow(DIALOG, arr_curr()) RETURNING l_cust.*
 				IF l_started THEN
-					CALL ui.Interface.setText(SFMT("Cust: %1", l_cust.cust_code) )
+					CALL ui.Interface.setText(SFMT("Cust: %1", l_cust.cust_code))
 				END IF
 				LET l_started = TRUE
 
@@ -119,7 +120,7 @@ MAIN
 				NEXT FIELD cust_code
 
 			ON ACTION custenq
-				RUN "fglrun cust_mnt M E "||l_cust.cust_code
+				RUN "fglrun cust_mnt M E " || l_cust.cust_code
 
 		END DISPLAY
 
@@ -148,7 +149,7 @@ MAIN
 			AFTER FIELD cust_code
 				IF l_new THEN
 					SELECT * FROM customers WHERE cust_code = l_cust.cust_code
-					IF STATUS != NOTFOUND THEN
+					IF status != NOTFOUND THEN
 						CALL lib.showError(SFMT("Customer '%1' code already exists!", l_cust.cust_code CLIPPED))
 						NEXT FIELD CURRENT
 					END IF
@@ -264,7 +265,7 @@ FUNCTION doReport()
 	DEFINE l_rpt_started BOOLEAN = FALSE
 
 	DEFINE l_handler om.SaxDocumentHandler
-	DISPLAY SFMT("FGLRESOUCEPATH=%1", fgl_getEnv("FGLRESOURCEPATH"))
+	DISPLAY SFMT("FGLRESOUCEPATH=%1", fgl_getenv("FGLRESOURCEPATH"))
 	DECLARE rpt_cur CURSOR FOR SELECT * FROM customers
 	FOREACH rpt_cur INTO l_cust.*
 		IF l_cust.cust_code IS NULL THEN
@@ -275,7 +276,9 @@ FUNCTION doReport()
 			LET l_rpt_started = TRUE
 
 			LET l_handler = lib.report_setup("cust1")
-			IF l_handler IS NULL THEN RETURN END IF
+			IF l_handler IS NULL THEN
+				RETURN
+			END IF
 			START REPORT rpt1 TO XML HANDLER l_handler
 
 		END IF

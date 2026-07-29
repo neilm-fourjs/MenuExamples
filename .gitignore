@@ -40,6 +40,9 @@
 *.gar
 *.zip
 
+# Makefile generated dependency graph
+bin*/modules.mk
+
 # Other
 .directory
 bin

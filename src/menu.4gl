@@ -40,17 +40,26 @@ MAIN
 		OPEN FORM f FROM "menu"
 	END IF
 	DISPLAY FORM f
+
 	CALL ui.Window.getCurrent().setText(SFMT("Menu - %1", TODAY))
 	CALL ui.Window.getCurrent().setImage("fa-navicon")
 	IF base.Application.getArgument(1) = "t" THEN
 		CALL ui.Window.getCurrent().getNode().setAttribute("style", "tabbed")
 	END IF
+	IF base.Application.getArgument(1) = "n" THEN
+		CALL ui.Window.getCurrent().getNode().setAttribute("style", "nottabbed")
+	END IF
 
 	CALL getMenu("main")
-	IF base.Application.getArgument(1) = "m" OR base.Application.getArgument(1) = "t" THEN
+	IF base.Application.getArgument(1) = "m" OR base.Application.getArgument(1) = "n"
+			OR base.Application.getArgument(1) = "t" THEN
 		CALL buildStartMenu()
 	END IF
 
+	IF base.Application.getArgument(1) = "n" THEN
+		CALL justMenu()
+		CALL lib.exit_program(0, "Program Finished")
+	END IF
 
 	DISPLAY ARRAY m_menu TO menu.* ATTRIBUTE(UNBUFFERED, FOCUSONFIELD, CANCEL = FALSE, ACCEPT = FALSE)
 		BEFORE DISPLAY
@@ -152,6 +161,17 @@ FUNCTION runProg(l_cmd STRING) RETURNS()
 	RUN l_cmd WITHOUT WAITING
 END FUNCTION
 --------------------------------------------------------------------------------------------------------------
+FUNCTION justMenu() RETURNS()
+	MENU
+		ON ACTION quit
+			EXIT MENU
+		ON ACTION close
+			EXIT MENU
+		ON ACTION about
+			CALL lib.about()
+	END MENU
+END FUNCTION
+--------------------------------------------------------------------------------------------------------------
 FUNCTION getMenu(l_name STRING) RETURNS()
 	DEFINE x, y SMALLINT
 	IF m_menus.getLength() = 0 THEN -- Read Menus
@@ -204,7 +224,7 @@ FUNCTION buildStartMenuAdd(l_sm_menu om.DomNode, l_menu STRING)
 	DEFINE x         SMALLINT
 	DEFINE l_cmd     STRING
 	DEFINE l_sm_item om.DomNode
-	CALL lib.log(1, SFMT("buildStartMenuAdd(%1) menu len: %2", l_menu, m_menus.getLength() ))
+	CALL lib.log(1, SFMT("buildStartMenuAdd(%1) menu len: %2", l_menu, m_menus.getLength()))
 	FOR x = 1 TO m_menus.getLength()
 		IF m_menus[x].m_name = l_menu THEN
 			IF m_menus[x].m_type = "M" THEN
@@ -230,6 +250,7 @@ FUNCTION buildStartMenuAdd(l_sm_menu om.DomNode, l_menu STRING)
 				LET l_sm_item = l_sm_menu.createChild("StartMenuCommand")
 				CALL l_sm_item.setAttribute("text", m_menus[x].m_text)
 				CALL l_sm_item.setAttribute("comment", m_menus[x].m_desc)
+				CALL l_sm_item.setAttribute("image", m_menus[x].m_img)
 				CALL l_sm_item.setAttribute("exec", l_cmd)
 			END IF
 		END IF

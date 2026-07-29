@@ -27,7 +27,7 @@ FUNCTION db_connect() RETURNS()
 
 	IF NOT os.Path.exists(l_db) THEN
 		IF base.Application.getProgramName() != "mk_db" THEN
-			RUN SFMT("fglrun mk_db %1", l_db)
+			RUN SFMT("fglrun bin%1/mk_db %1", l_db, fgl_getenv("GENVER"))
 		ELSE
 			CALL showError(SFMT("Database doesnt exist %1", l_db))
 			EXIT PROGRAM
@@ -330,7 +330,7 @@ FUNCTION report_finish()
 				CALL log(1, SFMT("putFile %1 to %2", m_report_outFile, l_remoteFile))
 				CALL fgl_putfile(m_report_outFile, l_remoteFile)
 			CATCH
-				CALL log(0, SFMT("Failed %1 %2", STATUS, err_get(STATUS)))
+				CALL log(0, SFMT("Failed %1 %2", status, err_get(status)))
 			END TRY
 		END IF
 	END IF
